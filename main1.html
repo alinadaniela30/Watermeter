@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width-device-width, initial-scale=1">
+	
+	
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	 
+	 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+	 
+
+ <script>
+function initOwnerID(){
+		var l=sessionStorage.length;
+		if ( l >0){
+			sessionStorage.clear();
+		}
+	}
+</script>
+<script>
+	function getOwnerInfo() {
+		if (parseInt(sessionStorage.OwnerID) > 0) {	
+            // definesc o variabila de tipul json
+            var dataObj = {}   
+			dataObj.OwnerID=sessionStorage.OwnerID; 
+
+            $.ajax({
+                type: "POST",
+                url: "getOwnerInfo.php",
+                data: {dataObj: JSON.stringify(dataObj)},
+                dataType: 'json',
+				success: function(respObj) {
+					if(respObj.status == "OK"){
+						// display info in form
+						var ownerInfo = {};
+						ownerInfo.LastName = respObj.LastName;
+						ownerInfo.FirstName = respObj.FirstName;
+						ownerInfo.StreetName = respObj.StreetName;
+						ownerInfo.StreetNo = respObj.StreetNo;
+						ownerInfo.AptNo = respObj.AptNo;
+						sessionStorage.setItem("OwnerInfo",JSON.stringify(ownerInfo));
+						location.href = "ownerinfo1.html";
+					} 
+					else {
+						alert(respObj.statusMsg);
+					}
+				},     
+				error: function(errorObj,errorStatus,errorMsg){
+					alert("Error connectiong to server: " + errorStatus + errorMsg);
+					console.log(errorStatus);
+					console.log(errorMsg);
+				}
+			});	
+
+		}
+		else {
+			sessionStorage.OwnerInfo = "";
+			location.href = "ownerinfo1.html";
+		}
+	}
+</script>
+
+</head>
+<body>
+<div class="total">
+		<div class="header" style="height:20%;background-color:#660066;color:white;text-align:center;">
+			<div class="buton" style="float:left;">
+				<a href="login1.html" target="_top" style="text-decoration:none;"><button onClick="initOwnerID()">Back</button></a>
+			</div>
+			<div class="text_header" style="clear:none;">
+			<h1>Aplicatie calcul consum apa asociatii proprietari</h1>
+			</div>
+		</div>
+		
+		<div class="main" style="background-color:#FFFF99;text-align:center; margin-left: 0 auto; margin-right:0 auto; padding: 5px 10px 5px 10px;">
+			
+			<div style="background-color:#FFFF99">
+			<h1>Pagina principala a aplicatiei</h1>
+				<button onclick="getOwnerInfo()">Date identificare user</button>
+				<button onclick="getMeters()">Trimitere contori</button>
+				<button onclick="getUsage()">Raport consum</button>
+			</div>
+			
+		</div>
+		
+		<div class="footer" style="background-color:#660066;color:white;text-align:center;">
+			<h2>Copyright &copy; 2014</h2>
+		</div>
+	</div>
+</body>
+</html>
