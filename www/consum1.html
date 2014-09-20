@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width-device-width, initial-scale=1">
+	
+	
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	 
+	 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+	 
+ <script>
+function initOwnerID(){
+		var l=sessionStorage.length;
+		if ( l >0){
+			sessionStorage.clear();
+		}
+	}
+ </script>
+
+</head>
+<body>
+
+<div  class="total">
+			<div class="header" style="height:20%;background-color:#660066;color:white;text-align:center;">
+			<div class="buton" style="float:left;">
+				<a href="main1.html" target="_top" style="text-decoration:none;"><input type="button" value="Back"></a>
+			</div>
+			<div class="text_header" style="clear:none;">
+			<h1>Aplicatie calcul consum apa asociatii proprietari</h1>
+			</div>
+			
+		</div>
+		
+			<div class="main" style="background-color:#FFFF99;text-align:center; margin-left: 0 auto; margin-right:0 auto; padding: 5px 10px 5px 10px;">
+			
+			<div style="background-color:#FFFF99">
+			<h1>Raport consum apa</h1>
+			<hr>
+				<form method="post" action="#">
+							
+					<fieldset class="ui-field-contain">
+						<label for="Month">Selectati luna:</label>
+						<select name="Month" id="Month">
+							<option value="ianuarie">Ianuarie</option>
+							<option value="februarie">Februarie</option>
+							<option value="martie">Martie</option>
+							<option value="aprilie">Aprilie</option>
+							<option value="mai">Mai</option>
+							<option value="iunie">Iunie</option>
+							<option value="iulie">Iulie</option>
+							<option value="august">August</option>
+							<option value="septembrie">Septembrie</option>
+							<option value="octombrie">Octombrie</option>
+							<option value="noiembrie">Noiembrie</option>
+							<option value="decembrie">Decembrie</option>
+						</select>
+					</fieldset>
+					
+					<div class="ui-field-contain">
+						<h3>Consumul aferen lunii este:</h3>
+						
+						<div class="ui-field-contain">
+						<label for="cons1">Consum contor1:</label>
+						<input type="number" name="cons1" id="cons1" readonly>
+						</div>
+						
+						<div class="ui-field-contain">
+						<label for="cons2">Consum contor2:</label>
+						<input type="number" name="cons2" id="cons2" readonly>
+						</div>
+						
+						<div class="ui-field-contain">
+						<label for="cons3">Consum contor3:</label>
+						<input type="number" name="cons3" id="cons3" readonly>
+						</div>
+						<hr>
+						
+						<div class="ui-field-contain" style="font-weight:bold;">
+						<label for="constotal">Consum total:</label>
+						<input type="number" name="constotal" id="constotal" readonly>
+						</div>
+						
+					</div>
+					<hr>
+					
+					<div data-role="controlgroup" data-type="horizontal">
+						<input type="button" value="Raport consum centralizat anual">
+						<input type="button" value="OK">
+					</div>
+				</form>
+			
+			
+			</div>
+			
+		</div>
+		
+		<div class="footer" style="background-color:#660066;color:white;text-align:center;">
+			<h2>Copyright &copy; 2014</h2>
+		</div>
+	</div>
+	
+</body>
+</html>

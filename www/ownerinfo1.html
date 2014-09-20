@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width-device-width, initial-scale=1">
+	
+	
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	 
+	 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+	 
+ <script>
+	function removeOwnerinfo() {
+		sessionStorage.removeItem("OwnerInfo");
+	}
+ </script>
+<script>
+	function saveOwnerInfo() {
+		var dataObj = {}, phpUrl="";   
+		dataObj.OwnerID=sessionStorage.OwnerID;
+		dataObj.LastName=$("#LastName").val();
+		dataObj.FirstName=$("#FirstName").val();
+		dataObj.StreetName=$("#StreetName").val();
+		dataObj.StreetNo=$("#StreetNo").val();
+		dataObj.AptNo=$("#AptNo").val();
+		
+		
+		if (parseInt(sessionStorage.OwnerID) > 0 &&	sessionStorage.OwnerInfo.length > 0) {
+			phpUrl = "updateOwnerInfo1.php";
+		}
+		else {
+			phpUrl = "addownerinfo1.php";
+			dataObj.UserName = sessionStorage.UserName;
+		}
+		
+		//request de update al ownerului 
+		$.ajax({
+			type: "POST",
+			url: phpUrl,
+			data: {dataObj: JSON.stringify(dataObj)},
+			dataType: 'json',
+			success: function(respObj) {
+				console.log(respObj.status);
+				if(respObj.status == "OK"){
+					var OwnerID = respObj.OwnerID;
+					sessionStorage.OwnerID = OwnerID;
+				} 
+				alert(respObj.statusMsg);
+
+			},     
+			error: function(errorObj,errorStatus,errorMsg){
+			
+				alert("Error connectiong to server: " + errorStatus + errorMsg);
+				console.log(errorStatus);
+				console.log(errorMsg);
+			}
+		});	
+			
+	}
+</script>
+</head>
+<body>
+	<div class="total">
+		<div class="header" style="height:20%;background-color:#660066;color:white;text-align:center;">
+			<div class="buton" style="float:left;">
+				<a href="main1.html" target="_top" style="text-decoration:none;"><input type="button" onclick="removeOwnerinfo()" value="Back"></a>
+			</div>
+			<div class="text_header" style="clear:none;">
+			<h1>Aplicatie calcul consum apa asociatii proprietari</h1>
+			</div>
+		</div>
+		
+		<div class="main" style="background-color:#FFFF99;text-align:center; margin-left: 0 auto; margin-right:0 auto; padding: 5px 10px 5px 10px;">
+			
+			<div style="background-color:#FFFF99">
+			<h1>Date identificare user</h1>
+			<hr>
+			
+				<form method="post" action="#" >
+						<div class="ui-field-contain">
+							<label for="LastName">Numele:</label>
+							<input type="text" name="LastName" id="LastName">
+						</div>
+						
+						<div class="ui-field-contain">
+							<label for="FirstName">Prenumele:</label>
+							<input type="text" name="FirstName" id="FirstName">
+						</div>
+						
+					
+						<div class="ui-field-contain" style="border:1px solid lightgrey;">
+							<p style="text-align:center;">Adresa</p>
+							
+								<div class="ui-field-contain">
+								<label for="StreetName">Strada:</label>
+								<input type="text" name="StreetName" id="StreetName">
+								</div>
+						
+								<div class="ui-field-contain">
+								<label for="StreetNo">Numar:</label>
+								<input type="number" name="StreetNo" id="StreetNo">
+								</div>
+							
+								<div class="ui-field-contain">
+								<label for="AptNo">Apartament:</label>
+								<input type="number" name="AptNo" id="AptNo">
+								</div>
+						</div>
+					
+					<hr>
+					
+					<div data-role="controlgroup" data-type="horizontal">
+						<input type="button" onclick="saveOwnerInfo()" value="Salveaza">
+						<input type="reset" value="Reset">
+					</div>
+				</form>
+			
+			
+			</div>
+			
+		</div>
+		
+		<div class="footer" style="background-color:#660066;color:white;text-align:center;">
+			<h2>Copyright &copy; 2014</h2>
+		</div>
+	</div>
+	
+	</body>
+<script>
+	$(document).ready(function() {
+		if ((sessionStorage.getItem("OwnerInfo")).length > 0) {
+			var OwnerInfo = JSON.parse(sessionStorage.OwnerInfo); 
+			$("#LastName").val(OwnerInfo.LastName);
+			$("#FirstName").val(OwnerInfo.FirstName);
+			$("#StreetName").val(OwnerInfo.StreetName);
+			$("#StreetNo").val(OwnerInfo.StreetNo);
+			$("#AptNo").val(OwnerInfo.AptNo);
+		}
+	});
+</script>
+</html>
