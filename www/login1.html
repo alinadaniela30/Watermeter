@@ -39,7 +39,7 @@ function doLogin() {
             
             $.ajax({
                 type: "POST",
-                url: "http://lambert.go.ro/doLogin.php",
+                url: "http://lambert.go.ro/Watermeter_server/php/doLogin.php",
                 data: {dataObj: JSON.stringify(dataObj)},
                 dataType: 'json',
 				success: function(respObj) {

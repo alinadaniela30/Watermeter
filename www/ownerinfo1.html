@@ -36,14 +36,16 @@
 		//request de update al ownerului 
 		$.ajax({
 			type: "POST",
-			url: phpUrl,
+			url: "http://lambert.go.ro/Watermeter_server/php/" + phpUrl,
 			data: {dataObj: JSON.stringify(dataObj)},
 			dataType: 'json',
 			success: function(respObj) {
 				console.log(respObj.status);
 				if(respObj.status == "OK"){
-					var OwnerID = respObj.OwnerID;
-					sessionStorage.OwnerID = OwnerID;
+					if (phpUrl == "addownerinfo1.php") {
+						var OwnerID = respObj.OwnerID;
+						sessionStorage.OwnerID = OwnerID;
+					}
 				} 
 				alert(respObj.statusMsg);
 

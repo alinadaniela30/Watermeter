@@ -49,6 +49,6 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-		eval('self.location="../login1.html"');
+		eval('self.location="login1.html"');
     }
 };

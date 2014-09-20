@@ -27,7 +27,7 @@ function initOwnerID(){
 
             $.ajax({
                 type: "POST",
-                url: "getOwnerInfo.php",
+                url: "http://lambert.go.ro/Watermeter_server/php/getOwnerInfo.php",
                 data: {dataObj: JSON.stringify(dataObj)},
                 dataType: 'json',
 				success: function(respObj) {
